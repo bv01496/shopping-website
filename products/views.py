@@ -28,10 +28,10 @@ def add_cart(request):
 
 def checkoutprice(request):
     instance = Shopcart.objects.filter(customer=request.user)
-    checkout = ""
+    checkout = 0
     for prod in instance:
         quant = prod.quantity
-        checkout += prod.product.price*quant 
+        checkout += int(prod.product.price)*quant 
     return checkout
 
 @ login_required

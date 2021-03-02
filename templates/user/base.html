@@ -43,9 +43,9 @@
             what r you
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="{% url 'catagory' 11 %}">men</a>
+            {% comment %} <a class="dropdown-item" href="{% url 'catagory' 11 %}">men</a>
             <a class="dropdown-item" href="{% url 'catagory' 12 %}">woman</a>
-            <a class="dropdown-item" href="{% url 'catagory' 13 %}">a fucking kid</a>
+            <a class="dropdown-item" href="{% url 'catagory' 13 %}">a fucking kid</a> {% endcomment %}
         </li>
       </ul>
     {% if user.is_authenticated %}

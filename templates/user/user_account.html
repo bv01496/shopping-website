@@ -1,0 +1,15 @@
+{% extends 'user/base.html' %}
+{% load crispy_forms_tags %}
+{% block body %}
+
+<div class="container">
+    <h2>your account details</h2>
+    <img src="{{user.profile.image.url}}" style="height:150px;width: 150px;" alt="..."
+class="rounded-circle account-img  mt-2 ">
+    <form method="POST">
+    {% csrf_token %}
+    {{form|crispy}}
+    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+    </form>
+</div>
+{% endblock body %}

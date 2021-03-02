@@ -1,0 +1,49 @@
+{% extends 'user/base.html' %}
+{% load crispy_forms_tags %}
+{% block body %}
+<div class="container my-3">
+<div class="list-group">
+{% for order in orders %}
+  <a class="list-group-item list-group-item-action">
+<div class="row">
+    <p class="col-md-5">{{order.product.name}}</p>
+    <p class="col-md-3">{{order.quantity}}</p>
+    <p class="col-md-3">Rs :{{order.product.price}}</p>
+</div>
+</a>
+{% endfor %}
+<a class="list-group-item list-group-item-action float-right">
+    <div class="row">
+        <h5 class="col-md-8">total :</h5>
+        <h5 class="col-md-4">{{totalprice}}</h5>
+    </div>
+</a>
+</div>
+
+
+<div id="address_create_form">
+    <form action="{% url 'add_address' %}" method="POST">
+        {% csrf_token %}
+        {{addressform|crispy}}
+        <button type="submit" class="btn btn-danger">submit</button>
+    </form>       
+</div>
+<button class="btn btn-primary my-2" id='address_create_form_id'>add adress</button>
+
+<form action="{% url 'placeorder' %}" method="POST">
+    {% csrf_token %}
+    <div class="row my-2">
+      {% for address in existing_address  %}
+      <div class="ml-2 card col-md-3" style="width: 18rem;">
+        <div class="card-body" >
+          <input type="radio" name="select_address" value="{{address.id}}">
+          <h5 class="card-title">address no {{ forloop.counter }}</h5>
+          <p class="card-text">{{address.location|truncatechars:25}}, {{address.street}}, {{address.pincode}}, {{address.phonenumber}}</p>
+        </div>
+      </div>
+      {% endfor %}
+      </div>
+    <button class="btn btn-primary my-2" type="submit">Place Order</button>
+</form>
+</div>
+{% endblock body %}

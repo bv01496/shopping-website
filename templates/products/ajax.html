@@ -1,0 +1,72 @@
+<script>
+    $(document).ready(function(){
+    $('#address_create_form').hide()
+    $('#address_create_form_id').click(function(){
+        $('#address_create_form').toggle()
+    })
+    $('a[name = "addtocart"]').click(function () {
+        let produc = $(this).attr('prodid')
+        let cart = $(this)
+        $.ajax({
+            url: "{% url 'cart' %}",
+            method: 'GET',
+            data: {product: produc},
+            success: function (data) {
+                cart.text(data.status)
+            }
+        });
+    });
+    $('a[name = "del-cart"]').click(function(){
+        let produc = $(this).attr('prod_id')
+        let crf = $('input[name= csrfmiddlewaretoken]').val()
+        let fade_prod = $(`div[prod_id = "${produc}"]`)
+        $.ajax({
+            url : '{% url "cart" %}',
+            method : 'POST',
+            dataType : 'json',
+            data : {product : produc, csrfmiddlewaretoken :crf},
+            success : function(data){
+                if(data.status == 'sucess'){
+                    fade_prod.fadeOut('slow')
+                    $('#checkout').text(data.checkout)
+                }
+            }
+        });
+ 
+    });
+    $('button[name = "inc-prod-count"]').click(function () {
+        let inc_prod = $(this).attr('prodid')
+        console.log(inc_prod)
+        $.ajax({
+            url: "{% url 'alter-cart-prod' %}",
+            method: 'GET',
+            data: { inc_prod : inc_prod},
+            success: function (data) {
+                $(`a[name=prod${inc_prod}]`).text(data.current_cart)
+                console.log(data.current_cart)
+                $('#checkout').text(data.checkout)
+            }
+        });
+    });
+
+    $('button[name = "dec-prod-count"]').click(function () {
+        let dec_prod = $(this).attr('prodid')
+        let crf = $('input[name= csrfmiddlewaretoken]').val()
+        $.ajax({
+            url: "{% url 'alter-cart-prod' %}",
+            method: 'POST',
+            data: { dec_prod : dec_prod ,csrfmiddlewaretoken :crf},
+            success: function (data) {
+                if (data.current_cart == 0){
+                    $(`div[prod_id = "${dec_prod}"]`).fadeOut('slow')
+
+                }
+                else{
+                $(`a[name=prod${dec_prod}]`).text(data.current_cart)
+                };
+                $('#checkout').text(data.checkout)
+            }
+        });
+    });
+});
+</script>

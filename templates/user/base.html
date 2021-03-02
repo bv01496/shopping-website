@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+{% load crispy_forms_tags %}
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+  <title>Struds:online shopping website</title>
+  
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    {% load static %}
+    <a class="navbar-brand" href="/" style="color:white ;line-height: 1;font-size: 2.25rem;">struds.in</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item ">
+          <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="{% url 'contact_us' %}">contact us <span class="sr-only">(current)</span></a>
+        </li>
+<li class="nav-item ">
+  <p id="test"></p>      
+      </li>
+        <li class="nav-item">
+          <a class="nav-link" href="new_arraivals">new arrivals</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            what r you
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{% url 'catagory' 11 %}">men</a>
+            <a class="dropdown-item" href="{% url 'catagory' 12 %}">woman</a>
+            <a class="dropdown-item" href="{% url 'catagory' 13 %}">a fucking kid</a>
+        </li>
+      </ul>
+    {% if user.is_authenticated %}
+    <ul class="navbar-nav">
+    <li class="nav-item dropdown " >
+      <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false" >
+        hi {{ user.username}}
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" href="{% url 'logout' %}">logout</a>
+        <a class="dropdown-item" href="#">your orders</a>
+        <a class="dropdown-item" href="{% url 'usercart' %}">your cart</a>
+        <a class="dropdown-item" href="{% url 'user_account' user.id %}">your account</a>
+      </div>
+    </li>
+  </ul>
+    {% else %}
+    <div>
+    <a type="button" class="btn btn-danger ml-2" data-target="#signupmodal" data-toggle="modal" style="color: white;">sign up</a>
+        <a type="button" class="btn btn-danger"  data-target="#loginmodal"data-toggle="modal"style="color: white;"> login</a>
+      </div>
+    {% endif %}
+    <form class="form-inline my-2 my-lg-0 pl-3 " method="GET" action="{% url 'search' %}">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search" Required>
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+      <div class="modal" tabindex="-1" role="dialog" id="signupmodal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">signup here</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form method="POST" class="card-body" action="{% url 'signup' %}">
+                {% csrf_token %}
+                {{signupform|crispy}}
+                <button type="submit" class="btn btn-primary mb-2">Submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+            <!-- login modal -->
+      <div class="modal" tabindex="-1" role="dialog" id="loginmodal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">login here</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form method="POST" action="{% url 'login' %}">
+                {% csrf_token %}
+                {{loginform|crispy}}
+                <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                <a href="{% url 'password_reset' %}">fargot password</a>
+              </form>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+{% if messages %}
+  {% for message in messages %}
+  <div class="alert alert-{{ message.tags}} alert-dismissible fade show mb-0" role="alert">
+    <b>{{massage.tags}}</b>{{ message }}..{{user.username}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {% endfor %}
+  {% endif %}
+  {% block body%}{% endblock%}
+  <input method="POST" action='#' type='hidden' name="csrfmiddlewaretoken" value="AQPAS1yL0utd2GKTBURfEo94OurIX52RM0Lkyhg0sUVRv5tNmSGxmZJPvTfasGdN">
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  {% include 'products/ajax.html' %}
+</body>
+</html>

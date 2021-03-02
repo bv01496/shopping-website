@@ -1,0 +1,91 @@
+{% extends 'user/base.html' %}
+{% block home %}active{% endblock %}
+{% block body%}
+<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      {% load static %}
+      <img class="d-block w-100" style="filter: brightness(50%);" src="{% static "shopping.jpg" %}" alt="First slide">
+      <div class="carousel-caption d-none d-md-block">
+        <h1 class="display-4 font-italic">season end sale is here, grab your favorite products at highest discounts </h1>
+      </div>
+    </div>
+    <div class="carousel-item">
+      {% load static %}
+      <img class="d-block w-100 " style="filter: brightness(50%);" src="{% static "shopping2.jpg" %}"
+        alt="Second slide">
+      <div class="carousel-caption d-none d-md-block">
+        <h1 class="display-4 font-italic">all fashion brands at single place no need to search elsewhere</h1>
+      </div>
+    </div>
+    <div class="carousel-item">
+      {% load static %}
+      <img class="d-block w-100" style="filter: brightness(50%);" src="{% static "shopping3.jpg" %}" alt="Third slide">
+      <div class="carousel-caption d-none d-md-block">
+        <h1 class="display-4 font-italic">stay home and shop with your phone, help us fight this panademic</h1>
+      </div>
+    </div>
+  </div>
+  <a class="carousel-control-prev col-md-2" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+  </a>
+</div>
+
+
+<div class="my-3 container">
+<h3 class="my-3">select from our vast catagories:</h3>
+<div id="carouselExampleControls2" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <div class="row">
+      {% for tag in tags1 %}
+      <div class="card col-md-4" style="width: 18rem;">
+        <img src="{{tag.image.url}}" style="height: 300px; width:300px" class="card-img-top" alt="...">
+        <div class="card-body">
+          <a href="{% url 'catagory' tag.id %}">{{tag.name}}</a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+    <div class="carousel-item">
+      <div class="row">
+        {% for tag in tags2 %}
+        <div class="card col-md-4" style="width: 18rem;">
+          <img src="{{tag.image.url}}" style="height: 300px; width:300px" class="card-img-top" alt="...">
+          <div class="card-body">
+           <a href="{% url 'catagory' tag.id %}">{{tag.name}}</a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="row">
+        {% for tag in tags3 %}
+        <div class="card col-md-4" style="width: 18rem;">
+          <img src="{{tag.image.url}}" style="height: 300px; width:300px" class="card-img-top " alt="...">
+          <div class="card-body">
+            <a href="{% url 'catagory' tag.id %}">{{tag.name}}</a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <a class="carousel-control-prev col-md-2" href="#carouselExampleControls2" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls2" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+  </a>
+</div>
+</div>
+
+
+{% endblock%}

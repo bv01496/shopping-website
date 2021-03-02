@@ -46,7 +46,7 @@
       <div class="card col-md-4" style="width: 18rem;">
         <img src="{{tag.image.url}}" style="height: 300px; width:300px" class="card-img-top" alt="...">
         <div class="card-body">
-          <a href="{% url 'catagory' tag.id %}">{{tag.name}}</a>
+          <a href="{% url 'catagory' tag.name %}">{{tag.name}}</a>
         </div>
       </div>
       {% endfor %}
@@ -58,7 +58,7 @@
         <div class="card col-md-4" style="width: 18rem;">
           <img src="{{tag.image.url}}" style="height: 300px; width:300px" class="card-img-top" alt="...">
           <div class="card-body">
-           <a href="{% url 'catagory' tag.id %}">{{tag.name}}</a>
+           <a href="{% url 'catagory' tag.name %}">{{tag.name}}</a>
           </div>
         </div>
         {% endfor %}
@@ -70,7 +70,7 @@
         <div class="card col-md-4" style="width: 18rem;">
           <img src="{{tag.image.url}}" style="height: 300px; width:300px" class="card-img-top " alt="...">
           <div class="card-body">
-            <a href="{% url 'catagory' tag.id %}">{{tag.name}}</a>
+            <a href="{% url 'catagory' tag.name %}">{{tag.name}}</a>
           </div>
         </div>
         {% endfor %}

@@ -35,7 +35,7 @@
   <p id="test"></p>      
       </li>
         <li class="nav-item">
-          <a class="nav-link" href="new_arraivals">new arrivals</a>
+          <a class="nav-link" href="{% url 'new_arraivals' %}">new arrivals</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
@@ -43,9 +43,9 @@
             what r you
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="{% url 'catagory' 18 %}">men</a>
-            <a class="dropdown-item" href="{% url 'catagory' 19 %}">woman</a>
-            <a class="dropdown-item" href="{% url 'catagory' 20 %}">kids</a>
+            <a class="dropdown-item" href="{% url 'catagory' "men" %}">men</a>
+            <a class="dropdown-item" href="{% url 'catagory' "women" %}">women</a>
+            <a class="dropdown-item" href="{% url 'catagory' "kids" %}">kids</a>
         </li>
       </ul>
     {% if user.is_authenticated %}
@@ -57,7 +57,7 @@
       </a>
       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
         <a class="dropdown-item" href="{% url 'logout' %}">logout</a>
-        <a class="dropdown-item" href="#">your orders</a>
+        <a class="dropdown-item" href="{% url 'existing_orders' %}">your orders</a>
         <a class="dropdown-item" href="{% url 'usercart' %}">your cart</a>
         <a class="dropdown-item" href="{% url 'user_account' user.id %}">your account</a>
       </div>

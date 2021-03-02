@@ -7,11 +7,14 @@ from django.contrib import messages
 from .models import Products,Shopcart,Ordered,Address
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+from products.models import Ordered
 
-def catlist(request,pk):
-    products = Products.objects.filter(tags = pk)       
-    tags = Tags.objects.get(id = pk).name
-    return render(request,'products/catagory_list.html',{"products":products,'tag':tags})
+def catlist(request,slug):
+    tag = Tags.objects.filter(name = slug)[0]
+    print("khhhhhh",tag)
+    products = Products.objects.filter(tags = tag.id)       
+    # tags = Tags.objects.get(id = pk).name
+    return render(request,'products/catagory_list.html',{"products":products,'tag':slug})
 
 @ login_required
 def add_cart(request):
@@ -100,6 +103,10 @@ def ordercheckout(request):
         checkout = checkoutprice(request)
         existing_address = Address.objects.filter(user=request.user)
         return render(request,'products/order.html',{'orders':orders,'totalprice':checkout,'existing_address':existing_address,'addressform':AddressForm()})
+
+def existing_orders(request):
+    orders = Ordered.objects.filter(customer = request.user)
+    return render(request,'user/existing_orders.html',{'orders':orders})
 
 def add_address(request):
     if request.method == 'POST':

@@ -5,8 +5,9 @@ from django.conf.urls.static import static
 from . import views
 
 urlpatterns = [
-    path('catagory/<pk>',views.catlist,name='catagory'),
+    path('catagory/<slug>',views.catlist,name='catagory'),
     path('search-query',views.Search.as_view(),name='search'),
+    path('existing_orders',views.existing_orders,name='existing_orders'),
     path('order',views.ordercheckout ,name='placeorder'),
     path('add_address',views.add_address ,name='add_address'),
     path('cart',views.add_cart ,name='cart'),

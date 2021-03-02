@@ -103,9 +103,10 @@ def ordercheckout(request):
 
 def add_address(request):
     if request.method == 'POST':
+        user = request.user
         location = request.POST.get('location')
         street = request.POST.get('street')
         pincode = request.POST.get('pincode')
         phonenumber = request.POST.get('phonenumber')
-        Address.objects.create(location=location,street=street,pincode=pincode,phonenumber=phonenumber)
+        Address.objects.create(user=user,location=location,street=street,pincode=pincode,phonenumber=phonenumber)
     return redirect('placeorder')

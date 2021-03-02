@@ -9,6 +9,7 @@ from django.views.generic import UpdateView
 from .forms import UserRegistrationForm ,ContactForm
 from django.contrib.auth.forms import AuthenticationForm
 from products.models import Tags
+from products.models import Products
 
 def home(request):
     signupform = UserRegistrationForm()
@@ -47,6 +48,7 @@ def contact_us(request):
         form = ContactForm(request.POST)
         if form.is_valid:
             form.save()
+            messages.success(request,'you reached us, we will get back to you soon')
         return redirect('/')
     form = ContactForm()
     return render(request,'user/contact.html',{'contactform':form})
@@ -56,12 +58,9 @@ def search(request):
     context = {'allproducts':search_results}
     return render(request,'search.html',context)
 
-def newarrivals(request):
+def new_arraivals(request):
     products= Products.objects.all()
-    n= len(products)
-    nSlides= n//4 + ceil((n/4) + (n//4))
-    params={'no_of_slides':nSlides, 'range':range(1,nSlides), 'products': products}
-    return render(request,'new_arraivals.html',params)
+    return render(request,'new_arraivals.html',{"products":products})
 
 def logingout(request):
     logout(request)

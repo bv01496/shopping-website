@@ -31,7 +31,7 @@ def checkoutprice(request):
     checkout = 0
     for prod in instance:
         quant = prod.quantity
-        checkout += int(prod.product.price)*quant 
+        checkout += 3*quant 
     return checkout
 
 @ login_required

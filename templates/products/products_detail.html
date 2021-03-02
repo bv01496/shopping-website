@@ -29,7 +29,7 @@
     <a href="{% url 'prod-detail' product.id %}">
         <div class="col-md-4">
             <div class="card" style="width: 15rem;">
-                <img src="{{ product.image.url}}" class="card-img-top" style="height: 300px; width:300px; max-height:300px" alt="...">
+                <img src="{{ product.image.url}}" class="card-img-top" style="height: 220px; width:220px; max-height:300px" alt="...">
                 <div class="card-body">
                   <h5 class="card-title" style="color:black">{{ product.name|truncatechars:15}}</h5>
                   <p class="card-text" style="color:black">{{product.description|truncatechars:45}}</p>

@@ -36,7 +36,7 @@
       {% for address in existing_address  %}
       <div class="ml-2 card col-md-3" style="width: 18rem;">
         <div class="card-body" >
-          <input type="radio" name="select_address" value="{{address.id}}">
+          <input type="radio" Required name="select_address" value="{{address.id}}">
           <h5 class="card-title">address no {{ forloop.counter }}</h5>
           <p class="card-text">{{address.location|truncatechars:25}}, {{address.street}}, {{address.pincode}}, {{address.phonenumber}}</p>
         </div>

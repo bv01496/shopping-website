@@ -93,7 +93,7 @@ def ordercheckout(request):
         for product in total_products:
             Ordered.objects.create(customer = product.customer, product= product.product,quantity=product.quantity,dilivery_address=selected_address)
             product.delete()
-        messages.success(request,'your order been placed successfully')
+        messages.success(request,f'your order been placed successfully, your products will be dilivered to {selected_address.pincode} within 5 days')
         return redirect('/')
     else:
         orders = Shopcart.objects.filter(customer= request.user)

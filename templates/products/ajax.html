@@ -58,7 +58,7 @@
             data: { dec_prod : dec_prod ,csrfmiddlewaretoken :crf},
             success: function (data) {
                 if (data.current_cart == 0){
-                    $(`div[prod_id = "q${dec_prod}"]`).fadeOut('slow')
+                    $(`div[prod_id = "${dec_prod}"]`).fadeOut('slow')
 
                 }
                 else{

@@ -116,4 +116,9 @@ def add_address(request):
         pincode = request.POST.get('pincode')
         phonenumber = request.POST.get('phonenumber')
         Address.objects.create(user=user,location=location,street=street,pincode=pincode,phonenumber=phonenumber)
+    else:
+        del_address_id = request.GET['del_address_id']
+        Address.objects.get(id=del_address_id).delete()
+        return JsonResponse({'success':'success'})
+
     return redirect('placeorder')

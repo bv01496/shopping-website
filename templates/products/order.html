@@ -34,11 +34,12 @@
     {% csrf_token %}
     <div class="row my-2">
       {% for address in existing_address  %}
-      <div class="ml-2 card col-md-3" style="width: 18rem;">
+      <div class="ml-2 card col-md-3" style="width: 18rem;" prod_id={{address.id}}>
         <div class="card-body" >
           <input type="radio" Required name="select_address" value="{{address.id}}">
           <h5 class="card-title">address no {{ forloop.counter }}</h5>
           <p class="card-text">{{address.location|truncatechars:25}}, {{address.street}}, {{address.pincode}}, {{address.phonenumber}}</p>
+          <button data-address="{{address.id}}" name="del_address" type="button" class="btn-sm btn-danger">delete</button>
         </div>
       </div>
       {% endfor %}

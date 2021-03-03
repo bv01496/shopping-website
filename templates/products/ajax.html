@@ -58,7 +58,7 @@
             data: { dec_prod : dec_prod ,csrfmiddlewaretoken :crf},
             success: function (data) {
                 if (data.current_cart == 0){
-                    $(`div[prod_id = "${dec_prod}"]`).fadeOut('slow')
+                    $(`div[prod_id = "q${dec_prod}"]`).fadeOut('slow')
 
                 }
                 else{
@@ -68,5 +68,19 @@
             }
         });
     });
+    $('button[name="del_address"]').click(function(){
+        let del_address_id = $(this).attr("data-address")
+        let crf = $('input[name= csrfmiddlewaretoken]').val()
+        $.ajax({
+            url: "{% url 'add_address' %}",
+            method: 'GET',
+            data: {del_address_id : del_address_id,csrfmiddlewaretoken :crf},
+            success:function(data){
+                if(data.success == 'success'){
+                    $(`div[prod_id=${del_address_id}]`).fadeOut('slow')
+                }
+            }
+        })
+    })
 });
 </script>
